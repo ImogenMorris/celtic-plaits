@@ -1,0 +1,849 @@
+\documentclass[10pt,a4paper]{report}
+\usepackage{graphicx} % for images
+\usepackage{url} % for url
+\usepackage[UKenglish]{babel} % for correct hyphenation patterns
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath} % for equation* and bmatrix environment
+\usepackage{float}
+\usepackage[titletoc,toc,title]{appendix}
+\usepackage{mcode}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{proposition}{Proposition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\theoremstyle{example}
+\newtheorem*{example}{Example}
+
+
+\author{Imogen Isabella Morris}
+\title{General Seifert Matrices of Celtic Knots}
+\date{6\textsuperscript{th} of July 2015}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\section{Introduction}
+
+The purpose of this article is to give a general Seifert matrix of a simple kind of Celtic knot which we will call `Celtic plaits' and a slightly more complex kind of Celtic knot with vertical barriers. This will involve finding the Seifert surfaces, finding the closed curves and calculating their linking numbers. 
+
+\chapter{Celtic Plaits}
+
+\section{Definition of Celtic Plaits} \label{sec:defplait}
+
+\begin{definition}[Celtic Plaits]
+
+A $2n\times 2m$ Celtic plait is a knot or link constructed in the following manner:
+\begin{itemize}
+\item A $2n\times 2m$, where $n,m \in  \mathbb{Z}^{+}$, grid is drawn
+\item A point is placed at every coordinate $(x,y)$ on the grid such that $x,y \in  \mathbb{Z}^{+}$ and $x+y$ is odd.
+% figure: Celtic plait grid
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{celticplaitgrid}
+\caption{Celtic Plait Grid}
+\label{celticplaitgrid}
+\end{figure}
+
+\item Through each point in the grid (except at the edge of the grid) draw two line segments that cross such that they lie at $45^{\circ}$ to the $x$-axis. If the point has an odd $x$-coordinate, then let the line segment which comes from the top right cross above the other. If the point has an odd $y$-coordinate, then let the line segment which comes from the top left cross above the other. 
+
+% figure: Celtic plait crossings
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{celticplaitcrossings}
+\caption{Incomplete Celtic Plait}
+\label{celticplaitcrossings}
+\end{figure}
+
+\item Where two line segments can be extended such that they will merge, extend them. 
+\item If extending a line segment would cause it to hit the edge of the grid, instead turn it so it curves slightly away from the edge.
+\item Where two curves can be extended such that they will merge, extend them. 
+
+% figure: Celtic plait
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{celticplaitONgrid}
+\caption{Completed Celtic Plait}
+\label{celticplaitONgrid}
+\end{figure}
+
+\footnote{This method of construction of a Celtic plait is taken from \url{http://www.cs.columbia.edu/~cs6204/files/Lec7,8a-CelticKnots.pdf}}
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Crossings]
+
+ We will call the places where we let one line segment cross above another `crossings'.
+\end{definition}
+
+\begin{remark}
+ Some sizes of grids give links rather than knots. \footnote{ See Appendix \ref{app:matpro}} We will not treat links differently here.
+ \end{remark}
+
+\begin{proposition}
+ All crossings in a Celtic plait have the same orientation.
+ 
+ \emph{Ad Hoc:} At least when the strands are orientated regularly.
+\end{proposition}
+\begin{proof}
+ In order to simplify the problem, let us assume that each odd strand of the Celtic plait is orientated with a downwards right diagonal arrow over their first crossing (the crossing in the top left hand corner of each strand), and each even strand is oriented with a downwards left diagonal arrow under their first crossing. Is this possible? We only need to think about the way strands return along one direction, because the plait is symmetrical. A strand going diagonally left (or diagonally right) returns an odd number of strands later, by symmetrical properties of the plait (see Figure \ref{symplait}). This means there is no conflict in choosing the orientation of the strands as above. So we can deduce that the structure of a general Celtic plait looks as it does in Figure \ref{plaitnxmorientstr} once we have chosen an orientation for each of the strands. 
+We can see that only two kinds of crossing occur in a general Celtic plait (see Figure \ref{crossings2}) and both kinds of crossings are the same under rotation. 
+\end{proof}
+
+% figure: Celtic plaits as diagonal lines
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{linkgridwcrossings}
+\caption{Celtic plait as diagonal lines}
+\label{linkgridwcrossings}
+\end{figure}
+
+% figure: Symmetrical properties of the plait
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{symplait}
+\caption{Symmetrical properties of a Celtic plait}
+\label{symplait}
+\end{figure}
+
+% figure: orientation of strands in a general Celtic plait
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{plaitnxmorientstr}
+\caption{Orientation of strands in a general Celtic plait}
+\label{plaitnxmorientstr}
+\end{figure}
+
+% figure: two kinds of crossing
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{crossings2}
+\caption{The two kinds of crossing in a Celtic plait orientated according to the conventions}
+\label{crossings2}
+\end{figure}
+ 
+\section{Seifert Surfaces}
+\begin{definition}[Seifert Surfaces]
+
+The Seifert surface of a knot or link is an orientable surface with the knot or link as its boundary.
+\end{definition}
+
+\begin{theorem}
+ Every knot and link has a Seifert surface.
+\label{thm1}
+\end{theorem}
+
+\subsection{Seifert's Algorithm}
+\begin{remark}
+ Seifert's Algorithm provides a proof by construction for Theorem \ref{thm1}.
+ \end{remark}
+ \begin{itemize}
+ \item We take a particular projection of a knot or link onto the plane.
+ \item We orientate a knot by giving its strand a direction. We orientate a link by giving each separate strand an independent direction.
+ \item We pick an arbitrary point on the projection of the knot or link. We follow the strand from this point in the direction that we chose. Every time we reach a crossing, we don't choose to follow the strand that we are on, but instead we choose the other strand. We choose to travel in the direction that is not opposed to the direction we were previously travelling in. Every time we complete a loop, we pick a new arbitrary point to start from, but it must not be a point we have previously passed. When we have run out of new points to pick, we stop. The loops we have found we call `Seifert circles'.
+\item The Seifert circles are joined by crossings. We replace each crossing with an equivalent band.
+\begin{definition}[Bands]
+
+A band equivalent to a crossing is a finite smooth surface bounded on two edges by the crossing.
+\end{definition}
+We replace each Seifert circle with a disk, after we have chosen different heights for any nested circles so that they won't intersect. We now have a smooth surface bounded by the knot. 
+\end{itemize}
+
+\begin{theorem}
+The Seifert surface is orientable.
+\end{theorem}
+
+\begin{proof}Once all the Seifert circles have been constructed, their boundary will be orientated either clockwise or anticlockwise, if we choose a single viewpoint on the circles which we can think of as being either `above' or `below'.
+
+% Figure
+
+ After the circles have been placed in three dimensions and have been spanned by disks, we choose the disks with the clockwise boundary orientation to be the `top' of the surface and the disks with the anticlockwise boundary orientation to be the `bottom' of the surface. Since this is just a label, it is completely arbitrary which we decide to call `top' and which we decide to call `bottom'. Notice that if we change our viewpoint from `above' to `below' the disk boundaries change from clockwise to anticlockwise and vice-versa, so `top' becomes `bottom' as you would expect.
+  To prove that the surface is orientable, we need to prove that the labelling is consistent, i.e. that each disk is labelled `top' or `bottom' but not both at the same time. We can do this by examining how the surface is constructed. 
+  \begin{itemize}
+  
+  \item If two Seifert disks are joined, it is always by a band that only goes through one twist. If it had been through a second twist, that would have created another Seifert circle/disk.
+  % figure
+  
+  \item Because of the way the Seifert circles were created, the disks can either be nested or adjacent.
+   % figure
+  
+  \item \emph{Adjacent disks have consistent orientation:} Disks that are adjacent and joined by a band will always have opposite orientations, because the crossing that the band was formed from will mean that the circles had opposite orientations. Since the band joining them goes through a single twist, this is consistent with the orientations.
+  % figure
+  
+  \item \emph{Nested disks have consistent orientation:} Disks that are nested and joined by a band will always have the same orientation, because the crossing that the band was formed from will mean that the circles had the same orientation. Since the band joining them goes through a single twist and then flips sides, this is consistent with the orientations.
+  %figure
+  \end{itemize}
+  
+  Since every part of the surface has consistent orientations locally, we deduce that the whole surface has consistent orientations. So the surface is orientable. 
+  \end{proof}
+  
+\subsection{Finding the Seifert Surfaces of Celtic Plaits}
+
+\begin{remark}
+We will use the convention that the first crossing (the crossing in the top left hand corner) is `over', 
+and that each strand of the Celtic plait is orientated with a downwards diagonal arrow over their first crossing (the crossing in the top left hand corner of each strand). We will also use the convention that the first Seifert disk (the disk in the top left hand corner) is on the bottom of the surface. Diagrams will show the top of the surface as shaded with diagonal lines. The effect of changing these conventions will be discussed in Section \ref{orientations}.
+\end{remark}
+
+\subsubsection{Finding the Seifert Surface of the $4 \times 6$ Celtic plait}
+
+ Once the plait is orientated (see Figure \ref{plait4x6orient}) we find the Seifert circles according to Seifert's algorithm (see Figure \ref{seifertcircles4x6}). Once the circles are found, it is easy to see what the Seifert surface must look like (see Figure \ref{seifertsurface4x6}).
+
+% figure: 4x6 plait orientated
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{plait4x6orient}
+\caption{4 $\times$ 6 plait with orientation}
+\label{plait4x6orient}
+\end{figure}
+
+% figure: Seifert circles 4x6
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifertcircles4x6}
+\caption{Seifert circles of a 4 $\times$ 6 plait}
+\label{seifertcircles4x6}
+\end{figure}
+
+% figure: Seifert surface 4x6
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifertsurface4x6}
+\caption{Seifert surface of a 4 $\times$ 6 plait}
+\label{seifertsurface4x6}
+\end{figure}
+
+\subsubsection{Finding the Seifert Surface of the $2n \times 2m$ Celtic plait}
+
+Once the plait is orientated (see Figure \ref{plaitnxmorient}) we find the Seifert circles according to Seifert's algorithm (see Figure \ref{seifertcirclesnxm}). Due to the structure of a Celtic plait, we can generalise the circles from a small part of the knot to the whole of the knot. Since the circles follow a regular pattern, so do the bands and disks that make up the Seifert surface (see Figure \ref{seifsurfnxm}). 
+
+% figure: 2nx2m plait orientated 
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{plaitnxmorient}
+\caption{$2n \times 2m$ plait with orientation}
+\label{plaitnxmorient}
+\end{figure}
+
+% figure: Seifert circles of 2nx2m plait
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifertcirclesnxm}
+\caption{Seifert circles of $2n \times 2m$ plait}
+\label{seifertcirclesnxm}
+\end{figure}
+ 
+% figure: Seifert surface of 2nx2m plait
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifsurfnxm}
+\caption{Seifert surface of $2n \times 2m$ plait}
+\label{seifsurfnxm}
+\end{figure}
+
+   
+\section{Seifert Matrix of Celtic Plaits}
+
+\subsection{Seifert Graphs and Closed Curves}
+
+\begin{definition}[Seifert Graphs]
+
+A Seifert graph of a knot is found from a Seifert surface of that knot by replacing bands by edges and disks by vertices.
+\end{definition}
+
+ We use the Seifert graph to find `closed curves' on the Seifert surface.
+ 
+ \begin{definition}[Closed Curves]
+ 
+A closed curve on the Seifert surface is the boundary of a face of the Seifert graph, placed on the surface so that it travels through the disks that were its vertices and the bands that were its edges.\footnote{When using the closed curves to find the Seifert matrix, we will always reject the closed curve which can be thought of as the face containing infinity, i.e. the outer boundary of the Seifert graph}
+\end{definition}
+
+\begin{remark}
+We will use the convention that all closed curves of Celtic plaits are orientated clockwise. This will be important in Section \ref{linkingnumbers}. Again, the effect of changing these orientations will be discussed in Section \ref{orientations}.
+\end{remark}
+
+\subsubsection{Seifert Graph and Closed Curves of a $4\times 6$ Celtic Plait}
+
+% figure: Seifert graph of 4x6 plait
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifertgraph4x6}
+\caption{Seifert graph of $4\times6$ plait}
+\label{seifertgraph4x6}
+\end{figure}
+
+% figure: Seifert surface of 4x6 plait with closed curves overlaid
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{closedcurves4x6}
+\caption{Seifert surface of $4\times6$ plait with closed curves overlaid}
+\label{closedcurves4x6}
+\end{figure}
+
+\subsubsection{Seifert Graph and Closed Curves of a $2n\times 2m$ Celtic Plait}
+
+% figure: Seifert graph of 2nx2m plait
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifertgraphnxm}
+\caption{Seifert graph of $2n\times2m$ plait}
+\label{seifertgraphnxm}
+\end{figure}
+  
+% figure: Seifert surface of 2nx2m plait with closed curves overlaid
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{closedcurvesnxm}
+\caption{Seifert surface of $2n\times2m$ plait with closed curves overlaid}
+\label{closedcurvesnxm}
+\end{figure}
+
+ 
+\subsection{Linking Numbers} \label{linkingnumbers}
+
+  As mentioned in the previous section, we will choose to orientate the closed curves clockwise.
+      
+  Let us label the closed curves the same way we would label the elements of a matrix. The closed curve in the $i$\textsuperscript{th} row and $j$\textsuperscript{th} column (measured from the top left corner), will be called $l_{i,j}$.
+
+ Since the closed curves are the same everywhere, there is a limited number of ways that the curves can link with each other. Only closed curves that are next to each other will have non-zero linking numbers. We can see from Figure \ref{seifsurfnxmlabelled} that $ l_{a,b}$ is next to $ l_{a-1,b}$, $ l_{a+1,b}$, $ l_{a,b-1}$ and $ l_{a,b+1}$. 
+ 
+% figure: Seifert surface of 2nx2m knot with closed curves labelled
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{seifsurfnxmlabelled}
+\caption{Seifert surface of 2nx2m knot with closed curves labelled}
+\label{seifsurfnxmlabelled}
+\end{figure}
+ 
+ Figures \ref{linkl1l1_} to \ref{linkl1l2_} show the ways in which the closed curves can link. In Figure \ref{linkl1l1_} the linking number is 2; in Figure \ref{linkl1_l2} the linking number is 0, and in Figure \ref{linkl1l2_} the linking number is 1.\footnote{`T' and `B' in figures \ref{linkl1_l2} and \ref{linkl1l2_} refers to `top' and `bottom'.}
+
+% figure: closed curve linking with itself
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{linkl1l1_}
+\caption{Closed curve linking with itself}
+\label{linkl1l1_}
+\end{figure}
+
+% figures: closed curves linking with neighbours
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+  \graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+  \includegraphics[width=1.2\textwidth]{linkl1_l2}
+   \caption[caption]{Closed curve linking\\\hspace{\textwidth}with its neighbour (1)}
+  \label{linkl1_l2}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+  \graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+  \includegraphics[width=1.2\textwidth]{linkl1l2_}
+  \caption[caption]{Closed curve linking\\\hspace{\textwidth}with its neighbour (2)}
+  \label{linkl1l2_}
+\end{minipage}
+\end{figure}
+
+ 
+\subsection{Seifert Matrix of a $2n\times2m$ Celtic Plait}
+
+We arrange the linking numbers of closed curves $ l_{a,b}$ and $ l_{c,d}$ in a matrix of the form
+\begin{equation*}
+\left( \begin{array}{c|c|c|c}
+A(1,1) & A(1,2) & \cdots & A(1,\frac{n}{2}-1) \\
+\hline
+A(2,1) & A(2,2) & \cdots & A(2,\frac{n}{2}-1) \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+A(\frac{n}{2}-1,1) & A(\frac{n}{2}-1,2) & \cdots & A(\frac{n}{2}-1,\frac{n}{2}-1)
+\end{array} \right)
+\end{equation*}
+where each $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ submatrix is given by 
+\begin{equation*}
+\def\arraystretchfactor{1.2}
+A(i,j) = \begin{pmatrix}
+Lk(l_{i,1},l_{j,1}^{\#}) & Lk(l_{i,1},l_{j,2}^{\#}) & \cdots & Lk(l_{i,1},l_{j,\frac{m}{2}-1}^{\#}) \\
+Lk(l_{i,2},l_{j,1}^{\#}) & Lk(l_{i,2},l_{j,2}^{\#}) & \cdots & Lk(l_{i,2},l_{j,\frac{m}{2}-1}^{\#}) \\
+\vdots & \vdots & \ddots & \vdots \\
+Lk(l_{i,\frac{m}{2}-1},l_{j,1}^{\#}) & Lk(l_{i,\frac{m}{2}-1},l_{j,2}^{\#}) & \cdots & Lk(l_{i,\frac{m}{2}-1},l_{j,\frac{m}{2}-1}^{\#})
+\end{pmatrix}
+\quad.
+\end{equation*}
+
+\begin{theorem}[General Seifert matrix of Celtic plaits]
+ We can now put the linking numbers that we calculated in the previous section into the matrix
+ 
+\begin{equation*}
+\left( \begin{array}{c|c|c|c}
+A(1,1) & A(1,2) & \cdots & A(1,\frac{n}{2}-1) \\
+\hline
+A(2,1) & A(2,2) & \cdots & A(2,\frac{n}{2}-1) \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+A(\frac{n}{2}-1,1) & A(\frac{n}{2}-1,2) & \cdots & A(\frac{n}{2}-1,\frac{n}{2}-1)
+\end{array} \right)
+\end{equation*}
+where $A(1,1)$ to $ A(\frac{n}{2}-1,\frac{n}{2}-1)$ are given by the $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ matrix
+\begin{equation*}
+\left( \begin{array}{ccccc}
+2 & 0 & \cdots & \cdots & 0 \\
+1 & 2 & \ddots & \ddots & \vdots \\
+0 & 1 & \ddots & \ddots & \vdots \\
+\vdots & \ddots & \ddots &  \ddots & 0 \\
+0 & \cdots & 0 & 1 & 2
+\end{array} \right)
+\end{equation*}
+$A(2,1)$ to $A(\frac{n}{2}-1,\frac{n}{2}-2)$ are given by the $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ matrix
+\begin{equation*}
+\left( \begin{array}{cccc}
+1 & 0 & \cdots & 0 \\
+0 & 1 & \ddots & \vdots \\
+\vdots & \ddots & \ddots & 0 \\
+0 & \cdots & 0 & 1
+\end{array} \right)
+\end{equation*}
+and all other submatrices are $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ zero matrices.
+\end{theorem}
+
+ 
+\section{Result of Changing the Orientations}\label{orientations}
+\subsection{Review of Conventions}
+The arbitrary conventions for the orientations we chose in the previous sections are listed below:
+\begin{itemize}
+\item We will use the convention that the first crossing (the crossing in the top left hand corner) is `over', 
+\item We will choose each strand of the Celtic plait to be orientated with a downwards diagonal arrow over their first crossing (the crossing in the top left hand corner of each strand). 
+\item We will also use the convention that the first Seifert disk (the disk in the top left hand corner) is on the bottom of the surface.
+\item We will choose to orientate the closed curves clockwise.
+\end{itemize}
+
+\begin{itemize}
+\item \emph{Changing orientation of the strands:} Reversing the orientation of all the strands swaps the orientation of the crossings and therefore the bands, from positive to negative. So it reverses the sign of the Seifert matrix.
+\item \emph{Changing orientation of first crossing:} Since Celtic knots are alternating, this changes the orientation all the crossings. Therefore it also changes the orientation of the bands from positive to negative, and reverses the sign of the Seifert matrix.
+\item \emph{Changing the orientation of the Seifert surface:} We change the `top' of the surface to the `bottom' and vice-versa. This affects the closed curves wherever they cross each other, \emph{except} if the crossing was the result of twisting by a band. 
+% The new linking numbers can be calculated from the following diagrams:
+%l1l1_ (same)
+%l1l2_ with new circle orientations
+%l1_l2 ditto
+
+\item \emph{Changing the orientation of a single closed curve:} Reversing the orientation of the curve will not change linking numbers that are zero. However, any linking numbers that are not zero of that curve with an adjacent curve will be the negative of what they were. The linking number of the curve with itself remains unchanged. 
+ 
+ Changing the orientation of a single curve only has a local effect on the Seifert Matrix, because it only affects the linking numbers of that curve with its neighbours.
+\end{itemize} 
+
+\chapter{Celtic Knots with Vertical Barriers}
+\subsection{Definition of a Celtic Knot with Barriers}
+ We define a general Celtic knot the same way as we defined a Celtic plait above, but with the insertion of `barriers'.
+ \begin{definition}[Barriers]
+  A barrier is a two-unit line segment that can be placed vertically or horizontally at any point %
+ \end{definition}
+ 
+\begin{definition}[Celtic Knot with Barriers]
+  A Celtic knot with barriers is the same as a Celtic plait defined in Section \ref{sec:defplait} except a barrier may be placed at any point before constructing the crossings. Then the crossings are placed on every free point. When the crossings are extended to form the knot, the barriers are treated as though they are an edge of the grid.
+\end{definition}
+
+\begin{remark}
+ All Celtic knots can be defined as Celtic knots with barriers.
+\end{remark}
+
+% figure: Celtic knot with barriers
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{barrierknot}
+\caption{Celtic Knot with Barriers}
+\label{barrierknot}
+\end{figure}
+ 
+ We will consider only Celtic knots with vertical barriers, because the Seifert matrix of these is simpler than that of a general Celtic knot with barriers.
+
+% figure: Celtic knot with vertical barriers
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{verticalbarrierknot}
+\caption{Celtic Knot with only Vertical Barriers}
+\label{verticalbarrierknot}
+\end{figure}
+
+
+\subsection{Seifert Matrix of a Subset of Celtic Knots with Vertical Barriers}
+\begin{remark}
+ If we know the Seifert matrix of any Celtic knot with vertical barriers, we also know the Seifert matrix of the same knots rotated through $90^{\circ}$, i.e. any Celtic knot with horizontal barriers.
+\end{remark}
+
+ It would be difficult to find the general Seifert matrix of any knot with vertical barriers, because when the vertical barriers are placed randomly the knot doesn't have much structure in its Seifert circles. Let us define a certain type of Celtic knot with vertical barriers, that has a more rigid structure, in order to find the general Seifert matrix of this type of knot.
+ 
+\begin{definition}[Horizontally Unchanging Celtic Knot]
+ We define a `horizontally unchanging' Celtic knot to be a Celtic knot that horizontally repeats itself every four units. Note that a HUC `knot' may actually be a link.
+\end{definition}
+
+ We will only discuss HUC knots that are created using vertical barriers.
+ 
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{HUCexample}
+\caption{An Example of a HUC Knot}
+\label{HUCexample}
+\end{figure}
+
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{HUCgeneral}
+\caption{General Form of a HUC Knot}
+\label{HUCgeneral}
+\end{figure}
+
+\subsubsection{Finding the Seifert Circles of HUC knots} 
+
+\begin{proposition}
+We can orientate any HUC knot so that the strands along the top line, which may or may not be separate strands, are alternating in orientation.
+\end{proposition}
+
+\begin{proof}
+Any Celtic plait can be orientated so that the strands along the top line are alternating in orientation. Any HUC knot can be reduced to a plait without changing the orientation of the top strands (and vice-versa) by using a move which is illustrated below in three different contexts.
+
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{HUCplaitmoves}
+\caption{Moves reducing HUC Knot to a Plait}
+\label{HUCplaitmoves}
+\end{figure}
+\end{proof}
+
+ Let us orientate our general HUC so that the strands along the top line are alternating in orientation, as we have just proved is possible. Now the Seifert circles are easily deducible from the diagram.
+ 
+ % figure of orientated HUC knot with Seifert circles highlighted.
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{HUCseifertcircles}
+\caption{HUC Knot with Seifert Circles Highlighted}
+\label{HUCseifertcircles}
+\end{figure}
+ 
+ The Seifert surface, as before, is the Seifert circles joined by bands that replace each crossing.
+ 
+ % figure of the Seifert surface
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{HUCseifertsurf}
+\caption{Seifert Surface of HUC Knot}
+\label{HUCseifertsurf}
+\end{figure}
+
+ 
+ \subsubsection{Finding the Seifert Graph and Closed Curves of HUC knots} 
+
+Replacing the Seifert circles by vertices and the bands by edges, we produce the following Seifert graph.
+
+% figure of the Seifert graph
+ \begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=0.5\textwidth]{HUCseifertgraph}
+\caption{Seifert Graph of HUC Knot}
+\label{HUCseifertgraph}
+\end{figure}
+
+
+Overlaying this onto the Seifert surface and then dividing the Seifert graph into faces, we find the closed curves of the Seifert surface.
+
+% figure with closed curves
+
+\subsubsection{Finding the Linking Numbers}
+
+Let us orientate all the closed curves clockwise.
+
+We can see that there are two kinds of closed curve. Therefore there are five kinds of link that can occur.
+%possibly illustrate both types of closed curves
+
+\begin{enumerate}
+\item a type 1 with another type 1 
+\item a type 1 with a type 2 (identical to a type 2 with a type 1) 
+\item a type 2 with another type 2 
+\item a type 1 with itself 
+\item a type 2 with itself 
+\end{enumerate}
+
+% figure: a type 1 with another type 1
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=\textwidth]{type1-type1}
+\caption{Type 1 with another Type 1}
+\label{type1-type1}
+\end{figure}
+
+% figure: a type 1 with a type 2
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=\textwidth]{type1-type1}
+\caption{Type 1 with Type 2}
+\label{type1-type2}
+\end{figure}
+
+% figure: a type 2 with a type 2
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=\textwidth]{type1-type1}
+\caption{Type 2 with another Type 2}
+\label{type2-type2}
+\end{figure}
+
+% figure: a type 1 with itself 
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=\textwidth]{type1-w-itself}
+\caption{Type 1 with Itself}
+\label{type1-w-itself}
+\end{figure}
+
+% figure: a type 2 with itself 
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=\textwidth]{type2-w-itself}
+\caption{Type 2 with Itself}
+\label{type2-w-itself}
+\end{figure}
+
+The linking numbers for each of these cases are:
+\begin{enumerate}
+\item 1 or 0 (depending on the circle orientations)
+\item 1 or 0 (depending on the circle orientations)
+\item 1 or 0 (depending on the circle orientations)
+\item -1
+\item -2
+\end{enumerate}
+
+  Let us label the closed curves the same way we would label the elements of a matrix. The closed curve in the $i$\textsuperscript{th} row and $j$\textsuperscript{th} column (measured from the top left corner), will be called $l_{i,j}$.
+
+Only closed curves that are next to each other will have non-zero linking numbers. We can see that $ l_{a,b}$ is next to $ l_{a-1,b}$, $ l_{a+1,b}$, $ l_{a,b-1}$ and $ l_{a,b+1}$. The linking numbers of $ l_{a,b}$ with each of its neighbours are given below:
+
+\begin{itemize}
+\item For $ l_{a,b}$ and $ l_{a,b+1}$ (which is equivalent to $ l_{a,b-1}$ and $ l_{a,b}$):
+
+This pair of closed curves will always either be both of type 1 or both of type 2, because they are adjacent horizontally. When they are both of type 1, then they do not link and therefore always have a linking number of 0. When they are both of type 2, they link across one band, and have a linking number of either 1 or 0 depending on the circle orientations.
+\item For $ l_{a,b}$ and $ l_{a+1,b}$ (which is equivalent to $ l_{a-1,b}$ and $ l_{a,b}$):
+
+This pair of closed curves can be both type 1, both type 2 or type 1 and type 2. Whichever type they are, they link across one band, and have a linking number of either 1 or 0 depending on the circle orientations.
+\end{itemize}
+
+\subsubsection{Seifert Matrix of a $n\times m$ HUC Knot}
+The linking numbers calculated in the previous section may be put in a matrix. However their layout is slightly tricky and depends on the length of the barriers and vertical spacing in the HUC knot, as well as the dimensions of the grid. The matrix will be given for HUC knots that have a fixed barrier length and fixed amount of vertical spacing between barriers. Let us call a barrier `of length $k$' when it is is the same length as $2k$ grid squares, and ditto for the vertical spacing. Let $b$ be the barrier length and $s$ be the length of vertical spacing. $h = \frac{m}{2}$ is the number of vertical barriers horizontally and $v = \frac{n+2s}{2b+2s}$ is the number of vertical barriers horizontally. The matrix takes the form 
+\begin{equation*}
+\left( \begin{array}{c|c|c|c}
+A(1,1) & A(1,2) & \cdots & A(1,vb+(v-1)s) \\
+\hline
+A(2,1) & A(2,2) & \cdots & A(2,vb+(v-1)s) \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+A(vb+(v-1)s,1) & A(vb+(v-1)s,2) & \cdots & A(vb+(v-1)s,vb+(v-1)s)
+\end{array} \right)
+\end{equation*}
+where each $h\times h$ i.e. $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ submatrix is given by 
+\begin{equation*}
+\def\arraystretchfactor{1.2}
+A(i,j) = \begin{pmatrix}
+Lk(l_{i,1},l_{j,1}^{\#}) & Lk(l_{i,1},l_{j,2}^{\#}) & \cdots & Lk(l_{i,1},l_{j,\frac{m}{2}-1}^{\#}) \\
+Lk(l_{i,2},l_{j,1}^{\#}) & Lk(l_{i,2},l_{j,2}^{\#}) & \cdots & Lk(l_{i,2},l_{j,\frac{m}{2}-1}^{\#}) \\
+\vdots & \vdots & \ddots & \vdots \\
+Lk(l_{i,\frac{m}{2}-1},l_{j,1}^{\#}) & Lk(l_{i,\frac{m}{2}-1},l_{j,2}^{\#}) & \cdots & Lk(l_{i,\frac{m}{2}-1},l_{j,\frac{m}{2}-1}^{\#})
+\end{pmatrix}
+\quad.
+\end{equation*}
+We can now put the linking numbers that we calculated in the previous section into the matrix
+\begin{equation*}
+\left( \begin{array}{c|c|c|c}
+A(1,1) & A(1,2) & \cdots & A(1,vb+(v-1)s) \\
+\hline
+A(2,1) & A(2,2) & \cdots & A(2,vb+(v-1)s) \\
+\hline
+\vdots & \vdots & \ddots & \vdots \\
+\hline
+A(vb+(v-1)s,1) & A(vb+(v-1)s,2) & \cdots & A(vb+(v-1)s,vb+(v-1)s)
+\end{array} \right)
+\end{equation*}
+where $A(1,1)$ to $ A(b,b)$ are given by the $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ matrix
+\begin{equation*}
+\left( \begin{array}{ccccc}
+-1 & 0 & \cdots & \cdots & 0 \\
+0 or 1 & -1 & \ddots & \ddots & \vdots \\
+0 & 0 or 1 & \ddots & \ddots & \vdots \\
+\vdots & \ddots & \ddots &  \ddots & 0 \\
+0 & \cdots & 0 & 0 or 1 & -1
+\end{array} \right)
+\end{equation*}
+$A(b+1,b+1)$ to $ A(b+s,b+s)$ are given by the $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ matrix
+\begin{equation*}
+\left( \begin{array}{ccccc}
+-2 & 0 & \cdots & \cdots & 0 \\
+0 or 1 & -2 & \ddots & \ddots & \vdots \\
+0 & 0 or 1 & \ddots & \ddots & \vdots \\
+\vdots & \ddots & \ddots &  \ddots & 0 \\
+0 & \cdots & 0 & 0 or 1 & -2
+\end{array} \right)
+\end{equation*}
+and so on until
+$A((v-1)b+(v-1)s,(v-1)b+(v-1)s)$ to $A(vb+(v-1)s,vb+(v-1)s)$ are given by the $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ matrix
+\begin{equation*}
+\left( \begin{array}{ccccc}
+-2 & 0 & \cdots & \cdots & 0 \\
+0 or 1 & -2 & \ddots & \ddots & \vdots \\
+0 & 0 or 1 & \ddots & \ddots & \vdots \\
+\vdots & \ddots & \ddots &  \ddots & 0 \\
+0 & \cdots & 0 & 0 or 1 & -2
+\end{array} \right)
+\end{equation*}
+Furthermore $A(2,1)$ to $A(vb+(v-1)s,vb+(v-1)s-1)$ and $A(1,2)$ to $A(vb+(v-1)s-1,vb+(v-1)s)$ are given by the $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ matrix
+\begin{equation*}
+\left( \begin{array}{cccc}
+0 or 1 & 0 & \cdots & 0 \\
+0 & 0 or 1 & \ddots & \vdots \\
+\vdots & \ddots & \ddots & 0 \\
+0 & \cdots & 0 & 0 or 1
+\end{array} \right)
+\end{equation*}
+and all other submatrices are $(\frac{m}{2}-1)\times (\frac{m}{2}-1)$ zero matrices.
+ \chapter{Finding the Seifert Matrices of General Celtic Knots}
+ \subsection{General Celtic Knots}
+ Since all alternating knots have a Celtic representation, finding the Seifert matrix of a general Celtic knot is equivalent to finding the Seifert matrix of a general alternating knot. We can create any Celtic knot if we can use both vertical and horizontal barriers. However, once we try to introduce horizontal barriers at the same time as vertical barriers, the Seifert circles no longer follow an easily discernible pattern, and calculating the general Seifert matrix would not be an easy task. But their Seifert matrices can easily be calculated individually, so it seems the way to proceed might be to write an algorithm to find them, that works for a general knot, and can be executed by computer. Since we already know how to find their Seifert matrices this seems simple in theory. But the computer must use matrices and matrix operations rather than the visual representations that humans use, and unfortunately the visual representations are difficult to translate into those terms.
+  \subsection{Algorithm for Finding Closed Curves}
+  \begin{remark}
+This algorithm works for all knots, even those that are not alternating. 
+\end{remark}
+ We take a projection of the knot onto the plane and choose an arbitrary point on the knot. We follow the strand in either direction, and each time we come to a crossing we give it a number. If we return to the same crossing, we give it a second number. We continue in this way until every crossing has an $(i,j,)$ tuple associated with it. 
+\subsubsection{Finding the Seifert Circles}
+ Let us label the tuples from 1 to $n$ where $n$ is the number of crossings in the knot. We will choose the 1\textsuperscript{st} tuple to be the tuple containing 1, and the ${k+1}$\textsuperscript{th} tuple to be the tuple containing the smallest integer greater than $k$ such that the tuple containing that integer has not been labelled already. 
+ 
+ Let $a_1$ be the segment from the 1\textsuperscript{st} tuple to the 2\textsuperscript{nd}, and let $a_k$ be the segment from the ${k}$\textsuperscript{th} tuple to the ${k+1}$\textsuperscript{th} tuple, except if $k=n$, in which case let $a_n$ be the segment from the ${n}$\textsuperscript{th} tuple to the 1\textsuperscript{st} tuple.
+ 
+  Let $o(i)$ mean 'the other entry in the tuple containing $i$'.
+  
+  Let us `join' $a_i$ to $a_j$, where $a_j$ is the segment from the tuple containing $o(i+1)$ to the tuple containing $o(i+1)+1$.
+ 
+  We will obtain groups of segments that are joined to each other, directly or indirectly. We put each group in a separate array. Eg:
+ \begin{equation*}
+ (a_1, \cdots, a_p)
+ \end{equation*}
+ \begin{equation*}
+ (a_q, \cdots, a_r)
+ \end{equation*}
+ \begin{equation*}
+ \vdots
+ \end{equation*}
+ \begin{equation*}
+ (a_t, \cdots, a_u)
+ \end{equation*}
+ Just to be standard, we start each array with the $a_i$ for which $i$ is lowest in that array, and then order the arrays so that the $i$s of the $a_i$s that start the arrays are ordered from lowest to highest. 
+ 
+ These are the Seifert circles, and their standard ordering can provide a way to give the circles different heights, which would be needed if the algorithm were to be extended to find the linking numbers of the closed curves.
+ 
+ \subsubsection{Finding the Closed Curves}
+ 
+ Label the arrays (the circles) $c_1,c_2,\cdots,c_s$ where $s$ is the number of circles. Label the crossing tuples $b_1,b_2,\cdots,b_n$ where $b_i$ is the $i$\textsuperscript{th} tuple. These tuples will now be called `bands' rather than crossings. 
+ 
+ We are going to create an ordering of the bands inside the circles. We will call each ordering $o_{c_j}$ where $c_j$ is the circle within which we are ordering the bands.
+ 
+ To create each $o_{c_j}$ we take the $c_j$ and replace each $a_i$ within that $c_j$ with the $b_k$ such that $b_k$ is the tuple containing $i$.
+ 
+ Now we take each $o_{c_j}$ and divide it into pairs of bands that are adjacent in the ordering. We allow bands at opposite ends of the ordering to be adjacent. Eg for the ordering $(b_r, \cdots, b_q)$, $b_r$ is adjacent to $b_q$.
+ 
+ For convenience we notate the pairs as follows, appending a small $c_i$ to each band tuple to show which circle they are adjacent in:
+\begin{equation*}
+(b_1,b_p)_{c_1}
+\end{equation*}
+\begin{equation*}
+\vdots
+\end{equation*}
+\begin{equation*}
+(b_q,b_r)_{c_s}
+\end{equation*}
+ We order the pairs by circle first, placing those from $c_1$ first and so on until $c_s$. Within this ordering we order the pairs by the value of the `$i$' first $b_i$ in each pair, from lowest to highest. This ordering is arbitrary and only for convenience.
+ 
+ Starting with the first entry $b_i$ in the first pair, next the second entry in that pair, and progressing through all entries in all pairs in order, we search systematically for another pair containing that $b_i$ . Then we search for another pair containing the $o(b_i)$ from that pair. We continue this process until we hit a pair that is tagged with a circle that a pair we passed through before was tagged with. We may call this `returning to a circle'. There are two conditions that must be obeyed throughout this process:
+ \begin{enumerate}
+ \item We may not return to a circle if it was the circle we just left.
+ \item If we cannot find any of the required pairs, the process must be stopped and deemed `unsuccessful'. Then we should try the process with the next entry on the list.
+ \end{enumerate}
+If we achieve a `successful' result, i.e. if we return to a circle, we record in an array the circle that was repeated, then the band that came next, the other circle that the band was tagged with, the band that came next after that etc. until the last band before the circle was returned to. The arrays we produce in this way are the closed curves, described by which bands and circles they pass through. 
+\begin{remark}
+One closed curve must be discarded as the `face at infinity'. Any of the closed curves may be chosen for this purpose.
+\end{remark}
+
+ %\subsection{Difficulties in Calculating Linking Numbers}
+ 
+  
+ % lots of figures.
+ \begin{appendices}
+ \section{Program for Drawing Link Components of Celtic Plaits} \label{app:matpro}
+ 
+ % figure: screenshot of matlab program 
+\begin{figure}[H]
+\centering
+\graphicspath{{/Users/Imogen/Desktop/seifertimages/lapath/}}
+\includegraphics[width=\textwidth]{matprogscreenshot}
+\caption{Screenshot of \textsc{Matlab} Program for Drawing Link Components}
+\label{matprogscreenshot}
+\end{figure} 
+
+\subsection{Main UI Program}
+ \lstinputlisting{Cplaitgui.m}
+ \subsection{UI Helper Programs}
+ These must each be also put on the \textsc{Matlab} path with the correct `.m' file names.
+ \subsubsection{firstlink.m}
+  \lstinputlisting{firstlink.m}
+  \subsubsection{linkcalc.m}
+   \lstinputlisting{linkcalc.m}
+   \subsubsection{linkC.m}
+    \lstinputlisting{linkC.m}
+ 
+ \section{The Number of Links that make up a Celtic Plait} \label{app:numlin}
+  In the previous Appendix \ref{app:matpro} a program was given for drawing link components of Celtic plaits. When the program is used for several examples of Celtic plaits, a conjecture naturally presents itself. This `conjecture' is expressed in the following theorem:
+  \begin{theorem}[Number of Links in a Celtic Plait]
+  The number of links in a Celtic plait is given by the highest common factor ($hcf$) of $n$ and $m$.\footnote{The proof of this is due to Gwen Fisher and Blake Mellor and can be found at \url{http://www.mi.sanu.ac.rs/vismath/fisher/}}
+  \end{theorem}
+  \begin{proof}
+  Let us first simplify the Celtic knot to a $2n\times2m$ grid filled only by diagonal lines (such as the diagrams drawn by the \textsc{Matlab} program in Appendix \ref{app:matpro} % reference figure from previous appendix
+  ). Since the crossing orientations and the pretty curves make no difference to the links of the plait, this is sufficient for the purposes of the proof. Let us imagine that there is an ant which travels along the strands of the plait. If the ant travels along the whole plait, the ant has travelled through every square of the grid, i.e. $2n\times2m$ squares. Now let us consider how the ant may travel any link in this plait. To travel a link, the ant must return to a square it has been before. We can separate its journey back to this square into horizontal and vertical dimensions. To return to its starting square, it must travel a multiple of $2n$ units vertically and a multiple of $2m$ units horizontally. But since the ant can only travel one unit vertically when it travels one unit horizontally (because of the diagonal lines the plait is made up of), it is the lowest common multiple ($lcm$) of $2n$ and $2m$ that first brings the ant back to where its journey started, and thus completes the link. Note that this is true of \emph{every} link in the plait, i.e. every single link in the plait takes the ant $lcm(2n,2m)$ squares to travel. Therefore the number of links in the plait is $\frac{2n\times2m}{lcm(2n,2m)} = hcf(2n,2m)$.
+  \end{proof}
+  
+ \end{appendices}
+\end{document}
